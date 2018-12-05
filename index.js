@@ -2,6 +2,7 @@
 var express = require("express");
 var request = require("request");
 var bodyParser = require("body-parser");
+const PAGE_ACCESS_TOKEN = 'EAAfkc5lPdkMBAECzCnDACepZA4rqWGMXZBpvPR6n6pEz0ys6CCRKwD4UR113n4wXuXheCSDP9ZCgBHf0WTZAvYaXZCfZAJSJCScCFP8qaTOTMeMzf7bsv4n0hIlHPfXqhZCzgth6D4XyJeZAA7TC7JLvfa4QNBGVWlXuLvOLeCC6GwZDZD';
 
 var app = express();
 app.use(bodyParser.urlencoded({extended: false}));

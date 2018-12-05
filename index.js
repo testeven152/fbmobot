@@ -1,5 +1,4 @@
 //webhook from facebook
-const request = require('request');
 var express = require("express");
 var request = require("request");
 var bodyParser = require("body-parser");

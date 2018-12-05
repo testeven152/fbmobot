@@ -1,4 +1,5 @@
 //webhook from facebook
+const request = require('request');
 var express = require("express");
 var request = require("request");
 var bodyParser = require("body-parser");
@@ -38,7 +39,7 @@ app.post('/webhook', (req, res) => {
     // Iterate over each entry - there may be multiple if batched
     body.entry.forEach(function(entry) {
 
-      // Get the webhook event. entry.messaging is an array, but 
+      // Get the webhook event. entry.messaging icoms an array, but 
       // will only ever contain one event, so we get index 0
       let webhook_event = entry.messaging[0];
       console.log(webhook_event);
@@ -46,6 +47,14 @@ app.post('/webhook', (req, res) => {
         // Get the sender PSID
       let sender_psid = webhook_event.sender.id;
       console.log('Sender PSID: ' + sender_psid);
+
+        // Check if the event is a message or postback and
+        // pass the event to the appropriate handler function
+      if (webhook_event.message) {
+        handleMessage(sender_psid, webhook_event.message);        
+      } else if (webhook_event.postback) {
+       handlePostback(sender_psid, webhook_event.postback);
+      }
       
     });
 
@@ -61,7 +70,19 @@ app.post('/webhook', (req, res) => {
 
 // Handles messages events
 function handleMessage(sender_psid, received_message) {
+  let response;
 
+  // Check if the message contains text
+  if (received_message.text) {    
+
+    // Create the payload for a basic text message
+    response = {
+      "text": `You sent the message: "${received_message.text}". Now send me an image!`
+    }
+  }  
+  
+  // Sends the response message
+  callSendAPI(sender_psid, response);
 }
 
 // Handles messaging_postbacks events
@@ -71,5 +92,11 @@ function handlePostback(sender_psid, received_postback) {
 
 // Sends response messages via the Send API
 function callSendAPI(sender_psid, response) {
-  
+   // Construct the message body
+   let request_body = {
+    "recipient": {
+      "id": sender_psid
+    },
+    "message": response
+  }
 }

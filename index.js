@@ -69,16 +69,34 @@ app.post('/webhook', (req, res) => {
 // Handles messages events
 function handleMessage(sender_psid, received_message) {
   
+  var keywords = ['hello','hi','quote', 'who']
+  var newtext;
   // Checks if the message contains text
   if (received_message.text) {    
     // Create the payload for a basic text message, which
     // will be added to the body of our request to the Send API
-    switch(received_message.text.replace(/[^\w\s]/gi, '').trim().toLowerCase()) {
+
+    for (var dict = 0; dict < keywords.length; dict++) {
+      if (keywordmatch(received_message.text, keywords[dict]) == true) {
+          newtext = keywords[dict];
+      };
+
+    };
+
+
+    switch(newtext) {
       case 'quote':
       quotemessage(sender_psid);
       break;
       case 'hello':
       hellomessage(sender_psid);
+      break;
+      case 'hi':
+      hellomessage(sender_psid);
+      break;
+      case 'who':
+      whomessage(sender_psid);
+      break;
       default:
       defaultmessage(sender_psid);
     }
@@ -112,6 +130,23 @@ function callSendAPI(sender_psid, response) {
   }); 
 }
 
+//keyword match to messagetext
+//i hope this works i got this off the internet
+function keywordmatch(bstring, lstring) {
+  let bstringlength = bstring.length;
+  let lstringlength = lstring.length;
+
+  for (var i = 0; i <= bstringlength - lstringlength; i++) {
+    for (var j = 0; j < lstring.length; j++ ) {
+      if (lstring[i + j] != bstring[j]) break;
+      if (j = lstringlength) return true;
+    }
+  }
+
+  return false;
+
+}
+
 //Sends default message if message does not contain an existing keyword
 function defaultmessage(sender_psid) {
   let response;
@@ -129,10 +164,19 @@ function hellomessage(sender_psid) {
   callSendAPI(sender_psid, response);
 }
 
+//Sends 'who am i' message 
+function whomessage(sender_psid) {
+  let response;
+  response = {
+    "text": 'I am the Motivation Bot. I give you motivational quotes when you need it! Just ask for a quote.'
+  }
+  callSendAPI(sender_psid, response);
+}
+
 //Sends random motivational quote
 function quotemessage(sender_psid) {
   let response;
-  let rand = Math.floor(Math.random() * 5) + 1; // gives random number between 1 and 5;
+  let rand = Math.floor(Math.random() * 6) + 1; // gives random number between 1 and 5;
   switch (rand) {
     case 1:
     response = {
@@ -158,6 +202,11 @@ function quotemessage(sender_psid) {
     response = {
       "text": '"Problems are not stop signs, they are guidelines." - Robert H. Schuller.'
     };
+    break;
+    case 6:
+    response = {
+      "text": '"The way to get started is to quit talking and begin doing." - Walt Disney.'
+    }
     break;
   }
   

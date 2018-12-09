@@ -73,7 +73,11 @@ function handleMessage(sender_psid, received_message) {
   if (received_message.text) {    
     // Create the payload for a basic text message, which
     // will be added to the body of our request to the Send API
-    defaultmessage(sender_psid);
+    if (received_message.text.replace(/[^\w\s]/gi, '').trim().toLowerCase() == 'quote') {
+      quotemessage(sender_psid);
+    } else {
+      defaultmessage(sender_psid);
+    }
   }  
   
 }
@@ -111,4 +115,12 @@ function defaultmessage(sender_psid) {
     "text": `Sorry, I didn't understand that.`
   }
   callSendAPI(sender_psid, response);
+}
+
+function quotemessage(sender_psid) {
+  let response;
+  response = {
+    "text": '"Optimism is the faith that leads to achievement. Nothing can be done without hope and confidence." - Helen Keller.'
+  }
+  callSendAPI(sender_api, response);
 }

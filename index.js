@@ -73,9 +73,13 @@ function handleMessage(sender_psid, received_message) {
   if (received_message.text) {    
     // Create the payload for a basic text message, which
     // will be added to the body of our request to the Send API
-    if (received_message.text.replace(/[^\w\s]/gi, '').trim().toLowerCase() == 'quote') {
+    switch(received_message.text.replace(/[^\w\s]/gi, '').trim().toLowerCase()) {
+      case 'quote':
       quotemessage(sender_psid);
-    } else {
+      break;
+      case 'hello':
+      hellomessage(sender_psid);
+      default:
       defaultmessage(sender_psid);
     }
   }  
@@ -117,6 +121,14 @@ function defaultmessage(sender_psid) {
   callSendAPI(sender_psid, response);
 }
 
+function hellomessage(sender_psid) {
+  let response;
+  response = {
+    "text": 'Hi! I am the Motivation Bot.'
+  }
+  callSendAPI(sender_psid, response);
+}
+
 //Sends random motivational quote
 function quotemessage(sender_psid) {
   let response;
@@ -134,17 +146,17 @@ function quotemessage(sender_psid) {
     break;
     case 3:
     response = {
-      "text": '"With the new day comes new strength and new thoughts." - Eleanor Roosevelt'
+      "text": '"With the new day comes new strength and new thoughts." - Eleanor Roosevelt.'
     };
     break;
     case 4:
     response = {
-      "text": '"If you can dream it, you can do it." - Walt Disney'
+      "text": '"If you can dream it, you can do it." - Walt Disney.'
     };
     break;
     case 5:
     response = {
-      "text": '"Problems are not stop signs, they are guidelines." - Robert H. Schuller'
+      "text": '"Problems are not stop signs, they are guidelines." - Robert H. Schuller.'
     };
     break;
   }

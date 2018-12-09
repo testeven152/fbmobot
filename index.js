@@ -69,7 +69,7 @@ app.post('/webhook', (req, res) => {
 // Handles messages events
 function handleMessage(sender_psid, received_message) {
   
-  var keywords = ['hello','hi', 'greetings','quote','who'];
+  var keywords = ['hello','hi', 'greetings','quote','who', 'sad'];
   var newtext = 'null';
   // Checks if the message contains text
   if (received_message.text) {    
@@ -86,6 +86,9 @@ function handleMessage(sender_psid, received_message) {
     switch(newtext) {
       case 'quote':
       quotemessage(sender_psid);
+      break;
+      case 'sad':
+      sadmessage(sender_psid);
       break;
       case 'greetings':
       hellomessage(sender_psid);
@@ -105,7 +108,6 @@ function handleMessage(sender_psid, received_message) {
   }  
   
 }
-
 
 // Sends response messages via the Send API
 function callSendAPI(sender_psid, response) {
@@ -174,6 +176,30 @@ function whomessage(sender_psid) {
   response = {
     "text": 'I am the Motivation Bot. I give you motivational quotes when you need it! Just ask for a quote.'
   }
+  callSendAPI(sender_psid, response);
+}
+
+function sadmessage(sender_psid) {
+  let response;
+  let rand = Math.floor(Math.random() * 3) + 1; // gives random number between 1 and 3
+  switch (rand) {
+    case 1:
+    response = {
+      "text": '"Remember that sometimes not getting what you want is a wonderful stroke of luck." - Dalai Lama.'
+    }
+    break;
+    case 2:
+    response = {
+      "text": 'I am sorry you are sad, but how can I be sorry if I am just a bot. Sorry.'
+    }
+    break;
+    case 3:
+    response = {
+      "text": '"First accept sadness. Realize that without losing, winning is not so great" - Alyssa Milano.'
+    }
+    break;
+  }
+
   callSendAPI(sender_psid, response);
 }
 

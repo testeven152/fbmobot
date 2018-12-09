@@ -73,16 +73,15 @@ function handleMessage(sender_psid, received_message) {
   var newtext = 'null';
   // Checks if the message contains text
   if (received_message.text) {    
-    // Create the payload for a basic text message, which
-    // will be added to the body of our request to the Send API
 
+    // Finds out if a keyword is in the text message
     for (var dict = 0; dict < keywords.length; dict++) {
       if (keywordmatch(received_message.text.trim().toLowerCase(), keywords[dict]) == true) {
           newtext = keywords[dict];
       } 
     };
 
-
+    // sends a different message for the found keyword
     switch(newtext) {
       case 'quote':
       quotemessage(sender_psid);
@@ -136,7 +135,6 @@ function callSendAPI(sender_psid, response) {
 
 //keyword match to messagetext
 //if keyword is found in string, returns true otherwise false
-//i hope this works i got this off the internet
 function keywordmatch(bstring, lstring) {
   let bstringlength = bstring.length;
   let lstringlength = lstring.length;
@@ -165,7 +163,7 @@ function defaultmessage(sender_psid) {
 function hellomessage(sender_psid) {
   let response;
   response = {
-    "text": 'Hi! I am the Motivation Bot.'
+    "text": 'Hi! I am the Motivation Bot. Ask me anything!'
   }
   callSendAPI(sender_psid, response);
 }
@@ -179,9 +177,10 @@ function whomessage(sender_psid) {
   callSendAPI(sender_psid, response);
 }
 
+//Sends quote for "sad" messages
 function sadmessage(sender_psid) {
   let response;
-  let rand = Math.floor(Math.random() * 3) + 1; // gives random number between 1 and 3
+  let rand = Math.floor(Math.random() * 5) + 1; // gives random number between 1 and 5
   switch (rand) {
     case 1:
     response = {
@@ -198,6 +197,16 @@ function sadmessage(sender_psid) {
       "text": '"First accept sadness. Realize that without losing, winning is not so great" - Alyssa Milano.'
     }
     break;
+    case 4:
+    response = {
+      "text": '"We must understand that sadness is an ocean, and sometimes we drown, while other days we are forced to swim." - R.M. Drake.'
+    }
+    break;
+    case 5:
+    response = {
+      "text": 'Experiencing sadness and anger can make you feel more creative, and by being creative you can get beyond your pain or negativity" - Yoko Ono.'
+    }
+    break;
   }
 
   callSendAPI(sender_psid, response);
@@ -206,7 +215,7 @@ function sadmessage(sender_psid) {
 //Sends random motivational quote
 function quotemessage(sender_psid) {
   let response;
-  let rand = Math.floor(Math.random() * 6) + 1; // gives random number between 1 and 5;
+  let rand = Math.floor(Math.random() * 10) + 1; // gives random number between 1 and 10;
   switch (rand) {
     case 1:
     response = {
@@ -236,6 +245,26 @@ function quotemessage(sender_psid) {
     case 6:
     response = {
       "text": '"The way to get started is to quit talking and begin doing." - Walt Disney.'
+    }
+    break;
+    case 7:
+    response = {
+      "text": '"It does not matter how slowly you go as long as you do not stop." - Confucius.'
+    }
+    break;
+    case 8:
+    response = {
+      "text": '"We should not give up and we should not allow the problem to defeat us" - A. P. J. Abdul Kalam.'
+    }
+    break;
+    case 9:
+    response = {
+      "text": '"Either you run the day or the day runs you." - Jim Rohn.'
+    }
+    break;
+    case 10:
+    response = {
+      "text": '"Never, never, never give up." - Winston Churchill.'
     }
     break;
   }

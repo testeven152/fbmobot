@@ -108,8 +108,9 @@ function callSendAPI(sender_psid, response) {
 }
 
 function defaultmessage(sender_psid) {
+  let response;
   response = {
-    "text": `You sent the message: "${received_message.text}".`
+    "text": `You sent a message.`
   }
   callSendAPI(sender_psid, response);
 }

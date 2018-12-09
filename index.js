@@ -70,7 +70,7 @@ app.post('/webhook', (req, res) => {
 function handleMessage(sender_psid, received_message) {
   
   var keywords = ['hello','hi','quote','who'];
-  var newtext;
+  var newtext = 'null';
   // Checks if the message contains text
   if (received_message.text) {    
     // Create the payload for a basic text message, which
@@ -79,8 +79,7 @@ function handleMessage(sender_psid, received_message) {
     for (var dict = 0; dict < keywords.length; dict++) {
       if (keywordmatch(received_message.text, keywords[dict]) == true) {
           newtext = keywords[dict];
-      };
-
+      } 
     };
 
 
@@ -138,7 +137,7 @@ function keywordmatch(bstring, lstring) {
 
   for (var i = 0; i <= bstringlength - lstringlength; i++) {
     for (var j = 0; j < lstring.length; j++ ) {
-      if (lstring[i + j] != bstring[j]) break;
+      if (bstring[i + j] != lstring[j]) break;
       if (j = lstringlength) return true;
     }
   }

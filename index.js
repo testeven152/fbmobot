@@ -122,5 +122,5 @@ function quotemessage(sender_psid) {
   response = {
     "text": '"Optimism is the faith that leads to achievement. Nothing can be done without hope and confidence." - Helen Keller.'
   }
-  callSendAPI(sender_api, response);
+  callSendAPI(sender_psid, response);
 }

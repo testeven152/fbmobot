@@ -69,7 +69,7 @@ app.post('/webhook', (req, res) => {
 // Handles messages events
 function handleMessage(sender_psid, received_message) {
   
-  var keywords = ['hello','hi','quote', 'who']
+  var keywords = ['hello','hi','quote','who'];
   var newtext;
   // Checks if the message contains text
   if (received_message.text) {    

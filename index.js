@@ -117,10 +117,37 @@ function defaultmessage(sender_psid) {
   callSendAPI(sender_psid, response);
 }
 
+//Sends random motivational quote
 function quotemessage(sender_psid) {
   let response;
-  response = {
-    "text": '"Optimism is the faith that leads to achievement. Nothing can be done without hope and confidence." - Helen Keller.'
+  let rand = Math.floor(Math.random() * 5) + 1; // gives random number between 1 and 5;
+  switch (rand) {
+    case 1:
+    response = {
+      "text": '"Optimism is the faith that leads to achievement. Nothing can be done without hope and confidence." - Helen Keller.'
+    };
+    break;
+    case 2:
+    response = {
+      "text": '"Life is 10% what happens to you and 90% how you react to it." - Charles R. Swindoll.'
+    };
+    break;
+    case 3:
+    response = {
+      "text": '"With the new day comes new strength and new thoughts." - Eleanor Roosevelt'
+    };
+    break;
+    case 4:
+    response = {
+      "text": '"If you can dream it, you can do it." - Walt Disney'
+    };
+    break;
+    case 5:
+    response = {
+      "text": '"Problems are not stop signs, they are guidelines." - Robert H. Schuller'
+    };
+    break;
   }
+  
   callSendAPI(sender_psid, response);
 }

@@ -69,7 +69,7 @@ app.post('/webhook', (req, res) => {
 // Handles messages events
 function handleMessage(sender_psid, received_message) {
   
-  var keywords = ['hello','hi','quote','who'];
+  var keywords = ['hello','hi', 'greetings','quote','who'];
   var newtext = 'null';
   // Checks if the message contains text
   if (received_message.text) {    
@@ -86,6 +86,9 @@ function handleMessage(sender_psid, received_message) {
     switch(newtext) {
       case 'quote':
       quotemessage(sender_psid);
+      break;
+      case 'greetings':
+      hellomessage(sender_psid);
       break;
       case 'hello':
       hellomessage(sender_psid);
@@ -130,6 +133,7 @@ function callSendAPI(sender_psid, response) {
 }
 
 //keyword match to messagetext
+//if keyword is found in string, returns true otherwise false
 //i hope this works i got this off the internet
 function keywordmatch(bstring, lstring) {
   let bstringlength = bstring.length;
@@ -155,6 +159,7 @@ function defaultmessage(sender_psid) {
   callSendAPI(sender_psid, response);
 }
 
+//greeting message
 function hellomessage(sender_psid) {
   let response;
   response = {

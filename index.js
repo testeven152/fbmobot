@@ -77,7 +77,7 @@ function handleMessage(sender_psid, received_message) {
     // will be added to the body of our request to the Send API
 
     for (var dict = 0; dict < keywords.length; dict++) {
-      if (keywordmatch(received_message.text, keywords[dict]) == true) {
+      if (keywordmatch(received_message.text.trim().toLowerCase(), keywords[dict]) == true) {
           newtext = keywords[dict];
       } 
     };

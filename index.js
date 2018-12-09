@@ -52,9 +52,7 @@ app.post('/webhook', (req, res) => {
         // pass the event to the appropriate handler function
       if (webhook_event.message) {
         handleMessage(sender_psid, webhook_event.message);        
-      } else if (webhook_event.postback) {
-       handlePostback(sender_psid, webhook_event.postback);
-      }
+      } 
       
     });
 
@@ -70,7 +68,6 @@ app.post('/webhook', (req, res) => {
 
 // Handles messages events
 function handleMessage(sender_psid, received_message) {
-  let response;
   
   // Checks if the message contains text
   if (received_message.text) {    
@@ -107,10 +104,11 @@ function callSendAPI(sender_psid, response) {
   }); 
 }
 
+//Sends default message if message does not contain an existing keyword
 function defaultmessage(sender_psid) {
   let response;
   response = {
-    "text": `You sent a message.`
+    "text": `Sorry, I didn't understand that.`
   }
   callSendAPI(sender_psid, response);
 }

@@ -76,13 +76,9 @@ function handleMessage(sender_psid, received_message) {
   if (received_message.text) {    
     // Create the payload for a basic text message, which
     // will be added to the body of our request to the Send API
-    response = {
-      "text": `You sent the message: "${received_message.text}".`
-    }
+    defaultmessage(sender_psid);
   }  
   
-  // Send the response message
-  callSendAPI(sender_psid, response);    
 }
 
 
@@ -109,4 +105,11 @@ function callSendAPI(sender_psid, response) {
       console.error("Unable to send message:" + err);
     }
   }); 
+}
+
+function defaultmessage(sender_psid) {
+  response = {
+    "text": `You sent the message: "${received_message.text}".`
+  }
+  callSendAPI(sender_psid, response);
 }

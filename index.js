@@ -69,7 +69,7 @@ app.post('/webhook', (req, res) => {
 // Handles messages events
 function handleMessage(sender_psid, received_message) {
   
-  var keywords = ['hello','hi', 'greetings','quote','who', 'sad'];
+  var keywords = ['hello','hi', 'greetings','quote','who', 'sad', 'mad', 'angry', 'frustrated', 'lonely', 'alone', 'stressed'];
   var newtext = 'null';
   // Checks if the message contains text
   if (received_message.text) {    
@@ -100,6 +100,24 @@ function handleMessage(sender_psid, received_message) {
       break;
       case 'who':
       whomessage(sender_psid);
+      break;
+      case 'mad':
+      madmessage(sender_psid);
+      break;
+      case 'angry':
+      madmessage(sender_psid);
+      break;
+      case 'frustrated':
+      madmessage(sender_psid);
+      break;
+      case 'lonely':
+      lonelymessage(sender_psid);
+      break;
+      case 'alone':
+      lonelymessage(sender_psid);
+      break;
+      case 'stressed':
+      stressmessage(sender_psid);
       break;
       default:
       defaultmessage(sender_psid);
@@ -174,6 +192,111 @@ function whomessage(sender_psid) {
   response = {
     "text": 'I am the Motivation Bot. I give you motivational quotes when you need it! Just ask for a quote.'
   }
+  callSendAPI(sender_psid, response);
+}
+
+function madmessage(sender_psid) {
+  let response;
+  let rand = Math.floor(Math.random() * 5) + 1;
+  switch(rand) {
+    case 1:
+    response = {
+      "text": '"For every minute you remain angry, you give up sixty seconds of peace of mind." - Ralph Waldo Emerson.'
+    }
+    break;
+    case 2:
+    response = {
+      "text": '"A man who has never made a woman angry is a failure in life." - Christopher Morley.'
+    }
+    break;
+    case 3:
+    response = {
+      "text": '"Speak when you are angry - and you will make the best speech you will ever regret" - Laurence J. Peter.'
+    }
+    break;
+    case 4:
+    response = {
+      "text": 'Anybody can become angry - that is easy, but to be angry with the right person and to the right degree and at the right time and for the right purpose, and in the right way - that is not within everybodys power and is not easy." - Aristotle.'
+    }
+    break;
+    case 5:
+    response = {
+      "text": '"To be angry is to revenge the faults of others on ourselves." - Alexander Pope.'
+    }
+    break;
+
+  }
+
+  callSendAPI(sender_psid, response);
+}
+
+function lonelymessage(sender_psid) {
+  let response;
+  let rand = Math.floor(Math.random() * 5) + 1;
+  switch(rand) {
+    case 1:
+    response = {
+      "text": '"Loneliness adds beauty to life. It puts a special burn on sunsets and makes night air smell better." - Henry Rollins.'
+    }
+    break;
+    case 2:
+    response = {
+      "text": '"Loneliness expresses the pain of being alone and solitude expresses the glory of being alone." - Paul Tillich.'
+    }
+    break;
+    case 3:
+    response = {
+      "text": '"Loneliness and the feeling of being unwanted is the most terrible poverty." - Mother Teresa.'
+    }
+    break;
+    case 4:
+    response = {
+      "text": '"We are all born alone and die alone. The loneliness is definitely part of the journey of life." - Jenova Chen.'
+    }
+    break;
+    case 5:
+    response = {
+      "text": '"Suffering, failure, loneliness, sorrow, discouragement, and death will be part of your journey, but the Kingdom of God will conquer all these horrors. No evil can resist grace forever." - Brennan Manning.'
+    }
+    break;
+
+  }
+
+  callSendAPI(sender_psid, response);
+}
+
+function stressmessage(sender_psid) {
+  let response;
+  let rand = Math.floor(Math.random() * 5) + 1;
+  switch(rand) {
+    case 1:
+    response = {
+      "text": '"More smiling, less worrying. More compassion, less judgement. You were never in control anyway." - Steven Maraboli.'
+    }
+    break;
+    case 2:
+    response = {
+      "text": '"If you want to conquer the anxiety of life, live in the moment, live in the breath." - Amit Ray.'
+    }
+    break;
+    case 3:
+    response = {
+      "text": '"We must have a pie. Stress cannot exist in the presence of a pie." - David Mamet.'
+    }
+    break;
+    case 4:
+    response = {
+      "text": '"To achieve great things, two things are needed: a plan and not quite enough time." - Leonard Bernstein.'
+    }
+    break;
+    case 5:
+    response = {
+      "text": '"I promise you nothing is as chaotic as it seems. Nothing is worth diminishing your health. Nothing is worth poisoning yourself into stress, anxiety, and fear." - Steven Maraboli.'
+    }
+    break;
+
+  }
+
   callSendAPI(sender_psid, response);
 }
 
